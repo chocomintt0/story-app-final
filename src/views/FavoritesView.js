@@ -39,7 +39,7 @@ export class FavoritesView {
             </button>
             <button id="export-favorites" class="btn btn-primary" type="button">
               ${Icons.download}
-              <span class="btn-text">Ekspor Favorit</span>
+              <span class="btn-text">Unduh Favorit</span>
             </button>
           </div>
         </section>
