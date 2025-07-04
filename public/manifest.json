@@ -1,7 +1,7 @@
 {
     "name": "Story Explorer - Discover Amazing Stories",
     "short_name": "Story Explorer",
-    "description": "Explore and share amazing stories from around the world with interactive maps and photos",
+    "description": "Like Dora The Explorer, Explore and share amazing stories from around the world with interactive maps and photos",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",
@@ -9,52 +9,16 @@
     "orientation": "portrait-primary",
     "scope": "/",
     "lang": "id",
-    "categories": ["social", "travel", "photography"],
+    "categories": ["social", "photography"],
     "icons": [
       {
-        "src": "/icons/icon-72x72.png",
-        "sizes": "72x72",
-        "type": "image/png",
-        "purpose": "maskable any"
-      },
-      {
-        "src": "/icons/icon-96x96.png",
-        "sizes": "96x96",
-        "type": "image/png",
-        "purpose": "maskable any"
-      },
-      {
-        "src": "/icons/icon-128x128.png",
+        "src": "/icons/social-media128.png",
         "sizes": "128x128",
         "type": "image/png",
         "purpose": "maskable any"
       },
       {
-        "src": "/icons/icon-144x144.png",
-        "sizes": "144x144",
-        "type": "image/png",
-        "purpose": "maskable any"
-      },
-      {
-        "src": "/icons/icon-152x152.png",
-        "sizes": "152x152",
-        "type": "image/png",
-        "purpose": "maskable any"
-      },
-      {
-        "src": "/icons/icon-192x192.png",
-        "sizes": "192x192",
-        "type": "image/png",
-        "purpose": "maskable any"
-      },
-      {
-        "src": "/icons/icon-384x384.png",
-        "sizes": "384x384",
-        "type": "image/png",
-        "purpose": "maskable any"
-      },
-      {
-        "src": "/icons/icon-512x512.png",
+        "src": "/icons/social-media.png",
         "sizes": "512x512",
         "type": "image/png",
         "purpose": "maskable any"
@@ -68,9 +32,9 @@
         "url": "/#add-story",
         "icons": [
           {
-            "src": "/icons/shortcut-add-story.png",
-            "sizes": "96x96",
-            "type": "image/png"
+            "src": "/icons/story.png",
+            "sizes": "512x512",
+            "type": "image/story.png"
           }
         ]
       },
@@ -81,8 +45,8 @@
         "url": "/#home",
         "icons": [
           {
-            "src": "/icons/shortcut-home.png",
-            "sizes": "96x96",
+            "src": "/icons/Home.png",
+            "sizes": "512x512",
             "type": "image/png"
           }
         ]
@@ -90,29 +54,29 @@
     ],
     "screenshots": [
       {
-        "src": "/screenshots/desktop-home.png",
-        "sizes": "1280x720",
+        "src": "/screenshots/Home-desktop.png",
+        "sizes": "1346x662",
         "type": "image/png",
         "form_factor": "wide",
         "label": "Story Explorer - Home page with interactive map"
       },
       {
-        "src": "/screenshots/desktop-add-story.png",
-        "sizes": "1280x720",
+        "src": "/screenshots/AddStory-desktop.png",
+        "sizes": "1345x658",
         "type": "image/png",
         "form_factor": "wide",
         "label": "Story Explorer - Add new story with camera"
       },
       {
-        "src": "/screenshots/mobile-home.png",
-        "sizes": "390x844",
+        "src": "/screenshots/Home-mobile.jpg",
+        "sizes": "540x1140",
         "type": "image/png",
         "form_factor": "narrow",
         "label": "Story Explorer - Mobile home view"
       },
       {
-        "src": "/screenshots/mobile-add-story.png",
-        "sizes": "390x844",
+        "src": "/screenshots/AddStory-mobile.jpg",
+        "sizes": "540x1140",
         "type": "image/png",
         "form_factor": "narrow",
         "label": "Story Explorer - Mobile add story view"
