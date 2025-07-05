@@ -1,0 +1,86 @@
+{
+    "name": "Story Explorer - Discover Amazing Stories",
+    "short_name": "Story Explorer",
+    "description": "Like Dora The Explorer, Explore and share amazing stories from around the world with interactive maps and photos",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "orientation": "portrait-primary",
+    "scope": "/",
+    "lang": "id",
+    "categories": ["social", "photography"],
+    "icons": [
+      {
+        "src": "/icons/social-media128.png",
+        "sizes": "128x128",
+        "type": "image/png",
+        "purpose": "maskable any"
+      },
+      {
+        "src": "/icons/social-media.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "maskable any"
+      }
+    ],
+    "shortcuts": [
+      {
+        "name": "Add New Story",
+        "short_name": "Add Story",
+        "description": "Quickly add a new story with photo and location",
+        "url": "/#add-story",
+        "icons": [
+          {
+            "src": "/icons/story.png",
+            "sizes": "512x512",
+            "type": "image/story.png"
+          }
+        ]
+      },
+      {
+        "name": "View Stories",
+        "short_name": "Stories",
+        "description": "Browse all stories on the map",
+        "url": "/#home",
+        "icons": [
+          {
+            "src": "/icons/Home.png",
+            "sizes": "512x512",
+            "type": "image/png"
+          }
+        ]
+      }
+    ],
+    "screenshots": [
+      {
+        "src": "/screenshots/Home-desktop.png",
+        "sizes": "1346x662",
+        "type": "image/png",
+        "form_factor": "wide",
+        "label": "Story Explorer - Home page with interactive map"
+      },
+      {
+        "src": "/screenshots/AddStory-desktop.png",
+        "sizes": "1345x658",
+        "type": "image/png",
+        "form_factor": "wide",
+        "label": "Story Explorer - Add new story with camera"
+      },
+      {
+        "src": "/screenshots/Home-mobile.jpg",
+        "sizes": "540x1140",
+        "type": "image/png",
+        "form_factor": "narrow",
+        "label": "Story Explorer - Mobile home view"
+      },
+      {
+        "src": "/screenshots/AddStory-mobile.jpg",
+        "sizes": "540x1140",
+        "type": "image/png",
+        "form_factor": "narrow",
+        "label": "Story Explorer - Mobile add story view"
+      }
+    ]
+  }
+  

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Explorer - SPA</title>
+    <meta name="description" content="Explore and share amazing stories from around the world with interactive maps and photos">
+    <meta name="keywords" content="stories, travel, photos, maps, sharing, exploration">
+    <meta name="author" content="chocomint">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Story Explorer">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Preload resources -->
+    <link rel="preload" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" as="style">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script type="module" crossorigin src="/assets/main-DJR8oUtS.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/main-w338dlaj.css">
+</head>
+<body>
+    <!-- Skip Navigation-->
+    <a href="#main-content" class="skip-link-hidden">Skip to main content</a>
+    
+    <!-- PWA Install Banner -->
+    <div id="install-banner" class="install-banner hidden" role="banner">
+        <div class="install-content">
+            <div class="install-info">
+                <h3 class="install-title">Want to Install Story Explorer?</h3>
+                <p class="install-description">Get the full app on your device.</p>
+            </div>
+            <div class="install-actions">
+                <button id="install-button" class="btn btn-primary">Install</button>
+                <button id="dismiss-install" class="btn btn-secondary">Not now</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Site Header with Primary Navigation -->
+    <header class="site-header" role="banner">
+        <nav class="primary-nav" id="main-nav" role="navigation" aria-label="Main navigation">
+        </nav>
+    </header>
+
+    <!-- Main Application Content -->
+    <main id="main-content" class="main-content" role="main" tabindex="-1">
+        <section id="app-content" class="app-section" aria-live="polite" aria-label="Application content">
+        </section>
+    </main>
+
+    <!-- Loading Indicator -->
+    <aside id="loading" class="loading-overlay hidden" role="status" aria-live="polite" aria-label="Loading content">
+        <div class="loading-content">
+            <div class="spinner" aria-hidden="true"></div>
+            <p class="loading-text">Loading...</p>
+        </div>
+    </aside>
+
+    <!-- Offline Indicator -->
+    <div id="offline-indicator" class="offline-indicator hidden" role="alert">
+        <div class="offline-content">
+            <span class="offline-icon">📡</span>
+            <span class="offline-text">You're offline. Some features may be limited.</span>
+        </div>
+    </div>
+
+    <!-- Push Notification Permission Banner -->
+    <div id="notification-banner" class="notification-banner hidden" role="banner">
+        <div class="notification-content">
+            <div class="notification-info">
+                <h3 class="notification-title">Stay Updated</h3>
+                <p class="notification-description">Get notified when new stories are shared</p>
+            </div>
+            <div class="notification-actions">
+                <button id="enable-notifications" class="btn btn-primary">Enable</button>
+                <button id="dismiss-notifications" class="btn btn-secondary">Not now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-content">
+            <p>&copy; 2025 Story Explorer Chocomint.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</body>
+</html>
