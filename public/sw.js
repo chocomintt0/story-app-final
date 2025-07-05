@@ -1,121 +1,103 @@
-// Service Worker for PWA functionality
-const CACHE_NAME = "story-explorer-v1";
-const STATIC_CACHE = "story-explorer-static-v1";
-const DYNAMIC_CACHE = "story-explorer-dynamic-v1";
-
-const STATIC_ASSETS = [
-  "/",
-  "/index.html",
-  "/manifest.json",
-  "/src/main.js",
-  "/src/styles/main.css",
-  "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css",
-  "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js",
+// Service Worker (Versi Final yang Andal)
+const CACHE_NAME = "story-explorer-v2"; // Naikkan versi cache untuk pembaruan
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+  // Tambahkan aset-aset utama yang ingin selalu tersedia offline
+  // Vite akan menghasilkan nama file yang berbeda setiap build, jadi kita akan cache saat runtime.
 ];
 
-self.addEventListener("install", (event) => {
+// 1. Install Service Worker dan Cache Aset Awal
+self.addEventListener('install', (event) => {
+  console.log('Service Worker: Installing...');
   event.waitUntil(
-    caches.open(STATIC_CACHE).then((cache) => {
-      return cache.addAll(STATIC_ASSETS);
-    })
+    caches.open(CACHE_NAME)
+      .then((cache) => {
+        console.log('Service Worker: Caching App Shell');
+        return cache.addAll(urlsToCache);
+      })
+      .then(() => self.skipWaiting())
   );
 });
 
-self.addEventListener("activate", (event) => {
+// 2. Aktifkan Service Worker dan Hapus Cache Lama
+self.addEventListener('activate', (event) => {
+  console.log('Service Worker: Activating...');
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
+          if (cacheName !== CACHE_NAME) {
+            console.log('Service Worker: Deleting old cache', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
-    })
+    }).then(() => self.clients.claim())
   );
 });
 
-self.addEventListener("fetch", (event) => {
-  const { request } = event;
-  const url = new URL(request.url);
-
-  if (url.origin === "https://story-api.dicoding.dev") {
-    event.respondWith(networkFirst(request));
-  } else {
-    event.respondWith(cacheFirst(request));
+// 3. Tangani Permintaan Jaringan (Fetch)
+self.addEventListener('fetch', (event) => {
+  // Gunakan strategi Cache First untuk semua permintaan GET
+  if (event.request.method === 'GET') {
+    event.respondWith(
+      caches.open(CACHE_NAME).then((cache) => {
+        return cache.match(event.request)
+          .then((response) => {
+            // Jika ada di cache, kembalikan dari cache
+            if (response) {
+              return response;
+            }
+            // Jika tidak, ambil dari jaringan, lalu simpan ke cache dan kembalikan
+            return fetch(event.request).then((networkResponse) => {
+              cache.put(event.request, networkResponse.clone());
+              return networkResponse;
+            });
+          });
+      })
+    );
   }
 });
 
-async function cacheFirst(request) {
-  const cachedResponse = await caches.match(request);
-  if (cachedResponse) {
-    return cachedResponse;
-  }
-  const networkResponse = await fetch(request);
-  const cache = await caches.open(DYNAMIC_CACHE);
-  cache.put(request, networkResponse.clone());
-  return networkResponse;
-}
 
-async function networkFirst(request) {
-  try {
-    const networkResponse = await fetch(request);
-    const cache = await caches.open(DYNAMIC_CACHE);
-    cache.put(request, networkResponse.clone());
-    return networkResponse;
-  } catch (error) {
-    const cachedResponse = await caches.match(request);
-    if (cachedResponse) {
-      return cachedResponse;
-    }
-  }
-}
-
-// =======================================================
-// BAGIAN PUSH NOTIFICATION YANG DIPERBAIKI
-// =======================================================
-
-// Event listener untuk push notification
+// 4. Tangani Event Push Notification
 self.addEventListener('push', (event) => {
   console.log('Service Worker: Push Received.');
 
-  let notificationData;
-  try {
-    // Tombol Push dari DevTools mengirim teks biasa, bukan JSON
-    const message = event.data.text();
-    notificationData = {
-      title: 'Push Notification',
-      options: {
-        body: message || 'Ini adalah notifikasi tes!',
-        icon: '/icons/icon-192x192.png',
-        badge: '/icons/icon-72x72.png',
-      }
-    };
-  } catch (e) {
-    notificationData = {
-      title: 'Push Notification',
-      options: {
-        body: 'Gagal mem-parsing data notifikasi.',
-        icon: '/icons/icon-192x192.png',
-        badge: '/icons/icon-72x72.png',
-      }
-    };
-  }
-
-  const title = notificationData.title;
-  const options = notificationData.options;
+  const notificationTitle = 'Story Explorer';
+  const notificationOptions = {
+    body: event.data.text() || 'Anda memiliki notifikasi baru!',
+    icon: '/icons/icon-192x192.png',
+    badge: '/icons/icon-72x72.png',
+    data: {
+      url: '/', // URL yang akan dibuka saat notifikasi diklik
+    },
+  };
 
   event.waitUntil(
-    self.registration.showNotification(title, options)
+    self.registration.showNotification(notificationTitle, notificationOptions)
   );
 });
 
-// Event listener untuk klik notifikasi
+// 5. Tangani Klik pada Notifikasi
 self.addEventListener('notificationclick', (event) => {
   console.log('Service Worker: Notification clicked.');
   event.notification.close();
 
+  const urlToOpen = event.notification.data.url;
+
   event.waitUntil(
-    clients.openWindow('/')
+    clients.matchAll({ type: 'window' }).then((windowClients) => {
+      for (const client of windowClients) {
+        if (client.url === urlToOpen && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      if (clients.openWindow) {
+        return clients.openWindow(urlToOpen);
+      }
+    })
   );
 });
