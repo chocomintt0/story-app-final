@@ -1,4 +1,3 @@
-// Add Story Page Component - Pure Vanilla JavaScript
 import { Icons } from "../utils/Icons.js"
 
 export class AddStoryPage {
@@ -133,7 +132,6 @@ export class AddStoryPage {
   }
 
   async init() {
-    // Add small delay to ensure DOM is ready
     setTimeout(() => {
       this.initMap()
       this.initCamera()
@@ -314,12 +312,10 @@ export class AddStoryPage {
     const uploadControls = document.getElementById("upload-controls")
     const removeUploadBtn = document.getElementById("remove-upload")
 
-    // Click to upload
     uploadArea.addEventListener("click", () => {
       fileInput.click()
     })
 
-    // Drag and drop
     uploadArea.addEventListener("dragover", (e) => {
       e.preventDefault()
       uploadArea.classList.add("drag-over")
@@ -338,27 +334,23 @@ export class AddStoryPage {
       }
     })
 
-    // File input change
     fileInput.addEventListener("change", (e) => {
       if (e.target.files.length > 0) {
         this.handleFileUpload(e.target.files[0])
       }
     })
 
-    // Remove upload
     removeUploadBtn.addEventListener("click", () => {
       this.clearUpload()
     })
   }
 
   handleFileUpload(file) {
-    // Validate file type
     if (!file.type.startsWith("image/")) {
       alert("Please select an image file")
       return
     }
 
-    // Validate file size (5MB max)
     if (file.size > 5 * 1024 * 1024) {
       alert("File size must be less than 5MB")
       return
@@ -391,7 +383,6 @@ export class AddStoryPage {
     if (uploadArea) uploadArea.classList.remove("hidden")
     if (fileInput) fileInput.value = ""
 
-    // Only clear captured image if we're in upload mode
     const uploadTab = document.getElementById("upload-tab")
     if (uploadTab && uploadTab.classList.contains("active")) {
       this.capturedImage = null
@@ -413,7 +404,6 @@ export class AddStoryPage {
 
     this.stopCamera()
 
-    // Only clear captured image if we're in camera mode
     const cameraTab = document.getElementById("camera-tab")
     if (cameraTab && cameraTab.classList.contains("active")) {
       this.capturedImage = null

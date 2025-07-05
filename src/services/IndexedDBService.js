@@ -1,4 +1,3 @@
-// IndexedDB Service for offline data storage
 export class IndexedDBService {
     constructor() {
       this.dbName = "StoryExplorerDB"
@@ -24,27 +23,23 @@ export class IndexedDBService {
         request.onupgradeneeded = (event) => {
           const db = event.target.result
   
-          // Stories store
           if (!db.objectStoreNames.contains("stories")) {
             const storiesStore = db.createObjectStore("stories", { keyPath: "id" })
             storiesStore.createIndex("createdAt", "createdAt", { unique: false })
             storiesStore.createIndex("name", "name", { unique: false })
           }
   
-          // Favorites store
           if (!db.objectStoreNames.contains("favorites")) {
             const favoritesStore = db.createObjectStore("favorites", { keyPath: "id" })
             favoritesStore.createIndex("addedAt", "addedAt", { unique: false })
           }
   
-          // Offline queue store
           if (!db.objectStoreNames.contains("offlineQueue")) {
             const queueStore = db.createObjectStore("offlineQueue", { keyPath: "id", autoIncrement: true })
             queueStore.createIndex("timestamp", "timestamp", { unique: false })
             queueStore.createIndex("type", "type", { unique: false })
           }
   
-          // User preferences store
           if (!db.objectStoreNames.contains("preferences")) {
             const preferencesStore = db.createObjectStore("preferences", { keyPath: "key" })
           }
@@ -54,7 +49,6 @@ export class IndexedDBService {
       })
     }
   
-    // Stories operations
     async saveStories(stories) {
       if (!this.db) await this.init()
   
@@ -116,7 +110,6 @@ export class IndexedDBService {
       })
     }
   
-    // Favorites operations
     async addToFavorites(story) {
       if (!this.db) await this.init()
   
@@ -172,7 +165,6 @@ export class IndexedDBService {
       })
     }
   
-    // Offline queue operations
     async addToOfflineQueue(action) {
       if (!this.db) await this.init()
   
@@ -228,7 +220,6 @@ export class IndexedDBService {
       })
     }
   
-    // Preferences operations
     async setPreference(key, value) {
       if (!this.db) await this.init()
   
@@ -255,7 +246,6 @@ export class IndexedDBService {
       })
     }
   
-    // Utility methods
     async clearAllData() {
       if (!this.db) await this.init()
   

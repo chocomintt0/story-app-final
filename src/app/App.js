@@ -1,4 +1,4 @@
-// Main Application Class dengan MVP Pattern - Clean from DOM manipulation
+
 import { AppView } from "../views/AppView.js"
 
 export class App {
@@ -24,7 +24,7 @@ export class App {
   }
 
   setupEventListeners() {
-    // Delegate all DOM event handling to view
+    
     this.view.onSkipToContent(() => this.handleSkipToContent())
     this.view.onNavLinkClick((href) => this.handleNavigation(href))
     this.view.onLogoutClick(() => this.handleLogout())
@@ -70,7 +70,7 @@ export class App {
 
     const hash = window.location.hash.slice(1) || "home"
 
-    // Skip routing if it's just an anchor link (like #main-content)
+    
     if (hash === "main-content") {
       return
     }
@@ -110,7 +110,7 @@ export class App {
 
   async loadPage(pageName) {
     try {
-      // Cleanup previous presenter
+      
       if (this.currentPresenter && this.currentPresenter.destroy) {
         this.currentPresenter.destroy()
       }
@@ -167,7 +167,7 @@ export class App {
         await this.currentPresenter.init()
       }
 
-      // Set focus to main content for accessibility after page load
+      
       setTimeout(() => {
         this.view.focusMainContent()
       }, 100)

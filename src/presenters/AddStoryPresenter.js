@@ -1,4 +1,3 @@
-// Add Story Presenter - Menghubungkan Model dan View
 import L from "leaflet"
 
 export class AddStoryPresenter {

@@ -1,4 +1,3 @@
-// Update HomePage to use real API data structure
 import { Icons } from "../utils/Icons.js"
 
 export class HomePage {
@@ -29,7 +28,6 @@ export class HomePage {
 
   async init() {
     await this.loadStories()
-    // Add small delay to ensure DOM is ready
     setTimeout(() => {
       this.initMap()
     }, 100)
@@ -79,7 +77,6 @@ export class HomePage {
       )
       .join("")
 
-    // Add click event listeners to story cards
     document.querySelectorAll(".story-card").forEach((card) => {
       card.addEventListener("click", () => {
         const storyId = card.getAttribute("data-story-id")
@@ -106,7 +103,6 @@ export class HomePage {
   }
 
   initMap() {
-    // Check if map container exists
     const mapContainer = document.getElementById("home-map")
     if (!mapContainer) {
       console.error("Map container not found")
@@ -114,10 +110,8 @@ export class HomePage {
     }
 
     try {
-      // Initialize map
       this.map = L.map("home-map").setView([-6.2, 106.8], 6)
 
-      // Add tile layers
       const osmLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: "© OpenStreetMap contributors",
       })
@@ -133,10 +127,8 @@ export class HomePage {
         attribution: "© OpenTopoMap contributors",
       })
 
-      // Add default layer
       osmLayer.addTo(this.map)
 
-      // Create layer control
       const baseLayers = {
         OpenStreetMap: osmLayer,
         Satellite: satelliteLayer,
@@ -145,7 +137,6 @@ export class HomePage {
 
       L.control.layers(baseLayers).addTo(this.map)
 
-      // Add story markers
       this.addStoryMarkers()
     } catch (error) {
       console.error("Error initializing map:", error)
@@ -176,7 +167,6 @@ export class HomePage {
     })
   }
 
-  // Add cleanup method
   destroy() {
     if (this.map) {
       this.map.remove()

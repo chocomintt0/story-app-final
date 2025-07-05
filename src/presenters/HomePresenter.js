@@ -1,4 +1,3 @@
-// Home Presenter - Uses view methods instead of direct DOM manipulation
 import L from "leaflet"
 import { Icons } from "../utils/Icons.js"
 
@@ -10,12 +9,10 @@ export class HomePresenter {
   }
 
   async init() {
-    // Set up view event handlers
     this.view.onStoryCardClick((storyId) => this.handleStoryClick(storyId))
     this.view.onAddToFavorites((storyId) => this.handleAddToFavorites(storyId))
 
     await this.loadStories()
-    // Add small delay to ensure DOM is ready
     setTimeout(() => {
       this.initMap()
       this.updateFavoriteButtonStates()

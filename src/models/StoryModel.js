@@ -1,4 +1,4 @@
-// Story Model - Mengelola data dan business logic
+
 export class StoryModel {
   constructor() {
     this.baseURL = "https://story-api.dicoding.dev/v1"
@@ -7,7 +7,7 @@ export class StoryModel {
     this.currentUser = null
   }
 
-  // Authentication Methods
+  
   async register(userData) {
     try {
       const response = await fetch(`${this.baseURL}/register`, {
@@ -53,7 +53,7 @@ export class StoryModel {
         throw new Error(result.message || "Login failed")
       }
 
-      // Store auth data
+      
       this.authToken = result.loginResult.token
       this.currentUser = {
         name: result.loginResult.name,
@@ -92,7 +92,7 @@ export class StoryModel {
     return this.currentUser
   }
 
-  // Story Methods
+  
   async getAllStories() {
     try {
       console.log("Fetching stories with token:", this.authToken ? "Token exists" : "No token")
@@ -112,10 +112,10 @@ export class StoryModel {
         throw new Error(result.message || "Failed to fetch stories")
       }
 
-      // Validate response structure
+      
       if (result && result.listStory && Array.isArray(result.listStory)) {
         this.stories = result.listStory
-        // Save to IndexedDB for offline access
+        
         if (window.indexedDBService) {
           await window.indexedDBService.saveStories(this.stories)
         }
@@ -127,7 +127,7 @@ export class StoryModel {
       return this.stories
     } catch (error) {
       console.error("Error fetching stories:", error)
-      // Return cached data if API fails
+      
       this.stories = await this.getCachedStories()
       return this.stories
     }
@@ -146,7 +146,7 @@ export class StoryModel {
       console.error("Error getting cached stories:", error)
     }
 
-    // Fallback to mock data
+    
     return this.getMockStories()
   }
 
@@ -217,13 +217,13 @@ export class StoryModel {
         throw new Error(result.message || "Failed to add story")
       }
 
-      // Refresh stories list
+      
       await this.getAllStories()
       return result
     } catch (error) {
       console.error("Error adding story:", error)
 
-      // If offline, add to queue
+      
       if (!navigator.onLine && window.indexedDBService) {
         await window.indexedDBService.addToOfflineQueue({
           type: "addStory",
@@ -237,7 +237,7 @@ export class StoryModel {
     }
   }
 
-  // Validation Methods
+  
   validateStoryData(storyData) {
     const errors = []
 
@@ -321,7 +321,7 @@ export class StoryModel {
     ]
   }
 
-  // Add favorite methods
+  
   async addToFavorites(story) {
     if (window.indexedDBService) {
       return await window.indexedDBService.addToFavorites(story)

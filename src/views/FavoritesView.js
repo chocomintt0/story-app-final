@@ -1,4 +1,3 @@
-// Favorites View - Shows saved favorite stories from IndexedDB
 import { Icons } from "../utils/Icons.js"
 
 export class FavoritesView {
@@ -266,7 +265,6 @@ export class FavoritesView {
     this.exportFavoritesCallback = callback
   }
 
-  // DOM element getters
   getFavoritesGrid() {
     return document.getElementById("favorites-grid")
   }

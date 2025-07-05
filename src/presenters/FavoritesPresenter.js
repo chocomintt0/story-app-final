@@ -1,4 +1,3 @@
-// Favorites Presenter - Manages favorite stories from IndexedDB
 export class FavoritesPresenter {
     constructor(model, view) {
       this.model = model
@@ -6,7 +5,6 @@ export class FavoritesPresenter {
     }
   
     async init() {
-      // Set up view event handlers
       this.view.onStoryCardClick((storyId) => this.handleStoryClick(storyId))
       this.view.onRemoveFromFavorites((storyId) => this.handleRemoveFromFavorites(storyId))
       this.view.onClearFavorites(() => this.handleClearFavorites())
@@ -42,7 +40,7 @@ export class FavoritesPresenter {
       if (this.view.confirmAction("Hapus cerita ini dari favorit?")) {
         try {
           await this.model.removeFromFavorites(storyId)
-          await this.loadFavorites() // Refresh the list
+          await this.loadFavorites()
           this.view.showSuccessMessage("Cerita dihapus dari favorit")
         } catch (error) {
           console.error("Error removing from favorites:", error)
@@ -64,7 +62,7 @@ export class FavoritesPresenter {
             await this.model.removeFromFavorites(favorite.id)
           }
   
-          await this.loadFavorites() // Refresh the list
+          await this.loadFavorites()
           this.view.showSuccessMessage("Semua favorit telah dihapus.")
         } catch (error) {
           console.error("Error clearing favorites:", error)
@@ -106,6 +104,5 @@ export class FavoritesPresenter {
     }
   
     destroy() {
-      // Cleanup if needed
     }
 }

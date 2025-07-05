@@ -1,4 +1,3 @@
-// PWA Service for installation and offline capabilities
 export class PWAService {
     constructor() {
       this.deferredPrompt = null
@@ -29,7 +28,6 @@ export class PWAService {
         this.hideInstallBanner()
         this.deferredPrompt = null
   
-        // Show success message
         this.showInstallSuccess()
       })
     }
@@ -48,20 +46,17 @@ export class PWAService {
         this.showOfflineIndicator()
       })
   
-      // Initial check
       if (!this.isOnline) {
         this.showOfflineIndicator()
       }
     }
   
     checkIfInstalled() {
-      // Check if running in standalone mode
       if (window.matchMedia("(display-mode: standalone)").matches) {
         this.isInstalled = true
         console.log("PWA is running in standalone mode")
       }
   
-      // Check for iOS Safari standalone mode
       if (window.navigator.standalone === true) {
         this.isInstalled = true
         console.log("PWA is running in iOS standalone mode")
@@ -82,14 +77,12 @@ export class PWAService {
       if (dismissButton) {
         dismissButton.addEventListener("click", () => {
           this.hideInstallBanner()
-          // Remember user dismissed the prompt
           localStorage.setItem("installPromptDismissed", Date.now().toString())
         })
       }
     }
   
     showInstallBanner() {
-      // Don't show if recently dismissed (within 7 days)
       const dismissedTime = localStorage.getItem("installPromptDismissed")
       if (dismissedTime) {
         const daysSinceDismissed = (Date.now() - Number.parseInt(dismissedTime)) / (1000 * 60 * 60 * 24)
@@ -98,7 +91,6 @@ export class PWAService {
         }
       }
   
-      // Don't show if already installed
       if (this.isInstalled) {
         return
       }
@@ -123,10 +115,8 @@ export class PWAService {
       }
   
       try {
-        // Show the install prompt
         this.deferredPrompt.prompt()
   
-        // Wait for the user to respond
         const { outcome } = await this.deferredPrompt.userChoice
         console.log(`User response to install prompt: ${outcome}`)
   
@@ -136,7 +126,6 @@ export class PWAService {
           console.log("User dismissed the install prompt")
         }
   
-        // Clear the deferred prompt
         this.deferredPrompt = null
         this.hideInstallBanner()
   
@@ -164,7 +153,6 @@ export class PWAService {
     }
   
     showInstallSuccess() {
-      // Create and show success notification
       const notification = document.createElement("div")
       notification.className = "install-success-notification"
       notification.innerHTML = `
@@ -176,7 +164,6 @@ export class PWAService {
   
       document.body.appendChild(notification)
   
-      // Auto-remove after 3 seconds
       setTimeout(() => {
         if (notification.parentNode) {
           notification.parentNode.removeChild(notification)
@@ -188,14 +175,12 @@ export class PWAService {
       if (!this.isOnline) return
   
       try {
-        // Get offline queue from IndexedDB
         const offlineQueue = await window.indexedDBService.getOfflineQueue()
   
         if (offlineQueue.length === 0) return
   
         console.log(`Syncing ${offlineQueue.length} offline actions`)
   
-        // Process each queued action
         for (const action of offlineQueue) {
           try {
             if (action.type === "addStory") {
@@ -208,7 +193,6 @@ export class PWAService {
           }
         }
   
-        // Show sync success message
         this.showSyncSuccess(offlineQueue.length)
       } catch (error) {
         console.error("Error syncing offline data:", error)
@@ -234,7 +218,6 @@ export class PWAService {
       }, 3000)
     }
   
-    // Utility methods
     isInstallable() {
       return !!this.deferredPrompt
     }

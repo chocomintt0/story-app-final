@@ -1,4 +1,3 @@
-// Login Page Component - Pure Vanilla JavaScript
 import { Icons } from "../utils/Icons.js"
 
 export class LoginPage {
@@ -185,11 +184,9 @@ export class LoginPage {
       await window.storyService.register(userData)
       alert("Registration successful! Please login with your credentials.")
 
-      // Switch to login mode
       this.isLoginMode = true
       document.getElementById("login-tab").click()
 
-      // Fill login form with registered credentials
       document.getElementById("login-email").value = userData.email
       document.getElementById("login-password").value = userData.password
     } catch (error) {

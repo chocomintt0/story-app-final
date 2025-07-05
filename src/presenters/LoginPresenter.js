@@ -1,4 +1,3 @@
-// Login Presenter - Menghubungkan Model dan View
 export class LoginPresenter {
     constructor(model, view) {
       this.model = model
@@ -51,11 +50,9 @@ export class LoginPresenter {
         password: formData.get("password"),
       }
   
-      // Validate using model
       const validationErrors = this.model.validateCredentials(credentials)
   
       if (validationErrors.length > 0) {
-        // Show validation errors
         if (!credentials.email || !credentials.email.includes("@")) {
           this.view.showValidationError("login", "email", "Valid email is required")
         }
@@ -89,11 +86,9 @@ export class LoginPresenter {
         password: formData.get("password"),
       }
   
-      // Validate using model
       const validationErrors = this.model.validateRegistrationData(userData)
   
       if (validationErrors.length > 0) {
-        // Show validation errors
         if (!userData.name || userData.name.trim().length < 2) {
           this.view.showValidationError("register", "name", "Name must be at least 2 characters long")
         }
@@ -111,7 +106,6 @@ export class LoginPresenter {
         await this.model.register(userData)
         alert("Registration successful! Please login with your credentials.")
   
-        // Switch to login mode and fill credentials
         this.view.switchToLoginMode()
         this.view.fillLoginCredentials(userData.email, userData.password)
       } catch (error) {

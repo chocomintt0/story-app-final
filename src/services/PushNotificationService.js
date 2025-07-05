@@ -1,7 +1,6 @@
-// Push Notification Service
 export class PushNotificationService {
     constructor() {
-      this.vapidPublicKey = "BN7-r0Svv7CsTi18-OPYtJLVW0bfuZ1x1UtrygczKjNrhbXHD7Z_Dp0Ua4_7UpjNhgxY0xVlXexb7OcPrFp9JOk" // From Dicoding API
+      this.vapidPublicKey = "BN7-r0Svv7CsTi18-OPYtJLVW0bfuZ1x1UtrygczKjNrhbXHD7Z_Dp0Ua4_7UpjNhgxY0xVlXexb7OcPrFp9JOk"
       this.registration = null
       this.subscription = null
     }
@@ -18,11 +17,9 @@ export class PushNotificationService {
       }
   
       try {
-        // Register service worker
         this.registration = await navigator.serviceWorker.register("/sw.js")
         console.log("Service Worker registered successfully")
   
-        // Wait for service worker to be ready
         await navigator.serviceWorker.ready
         console.log("Service Worker is ready")
   
@@ -62,11 +59,9 @@ export class PushNotificationService {
       }
   
       try {
-        // Check if already subscribed
         this.subscription = await this.registration.pushManager.getSubscription()
   
         if (!this.subscription) {
-          // Subscribe to push notifications
           this.subscription = await this.registration.pushManager.subscribe({
             userVisibleOnly: true,
             applicationServerKey: this.urlBase64ToUint8Array(this.vapidPublicKey),
@@ -75,7 +70,6 @@ export class PushNotificationService {
           console.log("Push subscription created:", this.subscription)
         }
   
-        // Send subscription to server (if needed)
         await this.sendSubscriptionToServer(this.subscription)
         return true
       } catch (error) {
@@ -85,8 +79,6 @@ export class PushNotificationService {
     }
   
     async sendSubscriptionToServer(subscription) {
-      // In a real app, you would send this to your server
-      // For demo purposes, we'll store it locally
       localStorage.setItem("pushSubscription", JSON.stringify(subscription))
       console.log("Push subscription stored locally")
     }
@@ -118,7 +110,6 @@ export class PushNotificationService {
       return Notification.permission
     }
   
-    // Utility function to convert VAPID key
     urlBase64ToUint8Array(base64String) {
       const padding = "=".repeat((4 - (base64String.length % 4)) % 4)
       const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/")
@@ -132,7 +123,6 @@ export class PushNotificationService {
       return outputArray
     }
   
-    // Show local notification (for testing)
     async showNotification(title, options = {}) {
       if (Notification.permission === "granted" && this.registration) {
         const defaultOptions = {

@@ -1,4 +1,3 @@
-// App View - Handles all DOM manipulation for the main application with semantic HTML
 import { Icons } from "../utils/Icons.js"
 
 export class AppView {
@@ -14,7 +13,6 @@ export class AppView {
 
   setupEventListeners() {
     document.addEventListener("click", (e) => {
-      // Handle skip link click
       if (e.target.matches(".skip-link-hidden") || e.target.matches(".skip-link")) {
         e.preventDefault()
         e.stopPropagation()
@@ -24,7 +22,6 @@ export class AppView {
         return false
       }
 
-      // Handle navigation links
       if (e.target.matches(".nav-link") || e.target.closest(".nav-link")) {
         e.preventDefault()
         const link = e.target.matches(".nav-link") ? e.target : e.target.closest(".nav-link")
@@ -34,7 +31,6 @@ export class AppView {
         }
       }
 
-      // Handle logout button
       if (e.target.matches(".logout-btn") || e.target.closest(".logout-btn")) {
         if (this.logoutCallback) {
           this.logoutCallback()
@@ -42,7 +38,6 @@ export class AppView {
       }
     })
 
-    // Enhanced keyboard navigation for skip link
     document.addEventListener("keydown", (e) => {
       if (
         (e.target.matches(".skip-link-hidden") || e.target.matches(".skip-link")) &&
@@ -58,7 +53,6 @@ export class AppView {
     })
   }
 
-  // Event callback setters
   onSkipToContent(callback) {
     this.skipToContentCallback = callback
   }
@@ -71,17 +65,14 @@ export class AppView {
     this.logoutCallback = callback
   }
 
-  // DOM manipulation methods
   focusMainContent() {
     const mainContent = document.getElementById("main-content")
     if (mainContent) {
-      // Scroll to main content
       mainContent.scrollIntoView({
         behavior: "smooth",
         block: "start",
       })
 
-      // Set focus after scroll completes
       setTimeout(() => {
         mainContent.focus()
       }, 300)
@@ -222,7 +213,6 @@ export class AppView {
     const contentElement = document.getElementById("app-content")
     if (!contentElement) return
 
-    // Animate out current page
     if (contentElement.firstElementChild) {
       const currentElement = contentElement.firstElementChild
       const animation = currentElement.animate(
@@ -239,10 +229,8 @@ export class AppView {
       await animation.finished
     }
 
-    // Load new page
     await loadPageCallback()
 
-    // Animate in new page
     const newElement = contentElement.firstElementChild
     if (newElement) {
       newElement.animate(
@@ -258,7 +246,6 @@ export class AppView {
     }
   }
 
-  // Element getters with semantic naming
   getContentElement() {
     return document.getElementById("app-content")
   }

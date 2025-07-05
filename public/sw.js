@@ -1,9 +1,9 @@
-// Service Worker for PWA functionality
+
 const CACHE_NAME = "story-explorer-v1"
 const STATIC_CACHE = "story-explorer-static-v1"
 const DYNAMIC_CACHE = "story-explorer-dynamic-v1"
 
-// Static assets to cache
+
 const STATIC_ASSETS = [
   "/",
   "/index.html",
@@ -30,7 +30,7 @@ const STATIC_ASSETS = [
   "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js",
 ]
 
-// Install event - cache static assets
+
 self.addEventListener("install", (event) => {
   console.log("Service Worker installing...")
 
@@ -51,7 +51,7 @@ self.addEventListener("install", (event) => {
   )
 })
 
-// Activate event - clean up old caches
+
 self.addEventListener("activate", (event) => {
   console.log("Service Worker activating...")
 
@@ -75,35 +75,35 @@ self.addEventListener("activate", (event) => {
   )
 })
 
-// Fetch event - serve from cache with network fallback
+
 self.addEventListener("fetch", (event) => {
   const { request } = event
   const url = new URL(request.url)
 
-  // Skip non-GET requests
+  
   if (request.method !== "GET") {
     return
   }
 
-  // Handle API requests with Network First strategy
+  
   if (url.origin === "https://story-api.dicoding.dev") {
     event.respondWith(networkFirstStrategy(request))
     return
   }
 
-  // Handle static assets with Cache First strategy
+  
   if (STATIC_ASSETS.includes(request.url) || url.pathname.includes("/src/")) {
     event.respondWith(cacheFirstStrategy(request))
     return
   }
 
-  // Handle images with Cache First strategy
+  
   if (request.destination === "image") {
     event.respondWith(cacheFirstStrategy(request, DYNAMIC_CACHE))
     return
   }
 
-  // Handle navigation requests
+  
   if (request.mode === "navigate") {
     event.respondWith(
       caches
@@ -118,18 +118,18 @@ self.addEventListener("fetch", (event) => {
     return
   }
 
-  // Default: try cache first, then network
+
   event.respondWith(cacheFirstStrategy(request, DYNAMIC_CACHE))
 })
 
-// Network First Strategy (for API calls)
+
 async function networkFirstStrategy(request) {
   try {
-    // Try network first
+    
     const networkResponse = await fetch(request)
 
     if (networkResponse.ok) {
-      // Cache successful responses
+      
       const cache = await caches.open(DYNAMIC_CACHE)
       cache.put(request, networkResponse.clone())
     }
@@ -138,13 +138,13 @@ async function networkFirstStrategy(request) {
   } catch (error) {
     console.log("Network failed, trying cache:", request.url)
 
-    // Fallback to cache
+    
     const cachedResponse = await caches.match(request)
     if (cachedResponse) {
       return cachedResponse
     }
 
-    // Return offline page for failed API requests
+    
     return new Response(
       JSON.stringify({
         error: true,
@@ -162,18 +162,18 @@ async function networkFirstStrategy(request) {
   }
 }
 
-// Cache First Strategy (for static assets)
+
 async function cacheFirstStrategy(request, cacheName = STATIC_CACHE) {
   try {
-    // Try cache first
+    
     const cachedResponse = await caches.match(request)
     if (cachedResponse) {
       return cachedResponse
     }
     
-    // Fallback to network
+    
     const networkResponse = await fetch(request)
     
     if (networkResponse.ok) {
-      // Cache the response
+      
       const cache = await caches.open(cacheName)

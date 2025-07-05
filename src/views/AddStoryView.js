@@ -1,4 +1,3 @@
-// Add Story View - Handles all DOM manipulation for add story page
 import { Icons } from "../utils/Icons.js"
 
 export class AddStoryView {
@@ -6,7 +5,6 @@ export class AddStoryView {
     this.element = null
   }
   
-  // Methods for Presenter to call
   showLoading() { window.app.showLoading(); }
   hideLoading() { window.app.hideLoading(); }
   showAlert(message) { alert(message); }
@@ -167,7 +165,6 @@ export class AddStoryView {
   hideCameraPreview() { this.getCameraPreviewElement()?.classList.add("hidden") }
   clearFileInput() { if (this.getFileInputElement()) this.getFileInputElement().value = "" }
 
-  // DOM element getters
   getMapContainer() { return document.getElementById("add-story-map") }
   getFormElement() { return document.getElementById("add-story-form") }
   getFormData() { return new FormData(this.getFormElement()) }

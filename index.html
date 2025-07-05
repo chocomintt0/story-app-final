@@ -6,7 +6,7 @@
     <title>Story Explorer - SPA</title>
     <meta name="description" content="Explore and share amazing stories from around the world with interactive maps and photos">
     <meta name="keywords" content="stories, travel, photos, maps, sharing, exploration">
-    <meta name="author" content="Story Explorer Team">
+    <meta name="author" content="chocomint">
     
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#000000">
@@ -27,7 +27,7 @@
     <!-- Manifest -->
     <link rel="manifest" href="/manifest.json">
     
-    <!-- Preload critical resources -->
+    <!-- Preload resources -->
     <link rel="preload" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" as="style">
     <link rel="preload" href="./src/styles/main.css" as="style">
     
@@ -35,15 +35,15 @@
     <link rel="stylesheet" href="./src/styles/main.css">
 </head>
 <body>
-    <!-- Skip Navigation for Accessibility -->
+    <!-- Skip Navigation-->
     <a href="#main-content" class="skip-link-hidden">Skip to main content</a>
     
     <!-- PWA Install Banner -->
     <div id="install-banner" class="install-banner hidden" role="banner">
         <div class="install-content">
             <div class="install-info">
-                <h3 class="install-title">Install Story Explorer</h3>
-                <p class="install-description">Get the full app experience with offline access</p>
+                <h3 class="install-title">Want to Install Story Explorer?</h3>
+                <p class="install-description">Get the full app on your device.</p>
             </div>
             <div class="install-actions">
                 <button id="install-button" class="btn btn-primary">Install</button>
@@ -55,14 +55,12 @@
     <!-- Site Header with Primary Navigation -->
     <header class="site-header" role="banner">
         <nav class="primary-nav" id="main-nav" role="navigation" aria-label="Main navigation">
-            <!-- Navigation will be dynamically generated -->
         </nav>
     </header>
 
     <!-- Main Application Content -->
     <main id="main-content" class="main-content" role="main" tabindex="-1">
         <section id="app-content" class="app-section" aria-live="polite" aria-label="Application content">
-            <!-- Dynamic content will be loaded here -->
         </section>
     </main>
 

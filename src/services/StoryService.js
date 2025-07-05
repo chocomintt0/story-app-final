@@ -1,4 +1,3 @@
-// Story Service for API interactions - Pure Vanilla JavaScript
 export class StoryService {
     constructor() {
       this.baseURL = "https://story-api.dicoding.dev/v1"
@@ -58,7 +57,6 @@ export class StoryService {
           throw new Error(result.message || "Login failed")
         }
   
-        // Store auth token
         this.authToken = result.loginResult.token
         localStorage.setItem("authToken", this.authToken)
         localStorage.setItem("userName", result.loginResult.name)
@@ -99,7 +97,6 @@ export class StoryService {
           throw new Error(result.message || "Failed to fetch stories")
         }
   
-        // Validate response structure
         if (result && result.listStory && Array.isArray(result.listStory)) {
           this.stories = result.listStory
         } else {
@@ -110,7 +107,6 @@ export class StoryService {
         return this.stories
       } catch (error) {
         console.error("Error fetching stories:", error)
-        // Return mock data if API fails
         this.stories = this.getMockStories()
         return this.stories
       }
@@ -135,7 +131,6 @@ export class StoryService {
         return result.story
       } catch (error) {
         console.error("Error fetching story:", error)
-        // Fallback to find in local stories
         return this.stories.find((story) => story.id === id)
       }
     }
@@ -147,7 +142,6 @@ export class StoryService {
         const formData = new FormData()
         formData.append("description", storyData.description)
   
-        // Ensure lat/lon are numbers
         const lat = Number.parseFloat(storyData.latitude)
         const lon = Number.parseFloat(storyData.longitude)
   
@@ -186,7 +180,6 @@ export class StoryService {
           throw new Error(result.message || "Failed to add story")
         }
   
-        // Refresh stories list
         await this.getAllStories()
         return result
       } catch (error) {

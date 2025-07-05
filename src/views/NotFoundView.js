@@ -1,4 +1,3 @@
-// 404 Not Found View
 import { Icons } from "../utils/Icons.js"
 
 export class NotFoundView {
@@ -20,10 +19,7 @@ export class NotFoundView {
         <section class="error-content">
           <div class="error-description">
             <p class="error-message">
-              Oops! The page you're looking for doesn't exist or has been moved.
-            </p>
-            <p class="error-suggestion">
-              Don't worry, you can find what you're looking for from our homepage.
+              Oops! The page you're looking for doesn't exist.
             </p>
           </div>
           

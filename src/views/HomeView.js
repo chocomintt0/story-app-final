@@ -1,4 +1,3 @@
-// Home View - Semantic HTML structure for home page
 import { Icons } from "../utils/Icons.js"
 
 export class HomeView {

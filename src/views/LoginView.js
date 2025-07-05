@@ -5,7 +5,6 @@ export class LoginView {
     this.element = null
   }
 
-  // Methods for Presenter to call
   showLoading() { window.app.showLoading(); }
   hideLoading() { window.app.hideLoading(); }
   showAlert(message) { alert(message); }
