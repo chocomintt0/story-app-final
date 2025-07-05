@@ -1,2 +1,2 @@
 Cohort ID : fc323d5y1747
-link deploy : https://storyexp.netlify.app/
+link deploy : https://storyexpp.netlify.app/

@@ -1,10 +1,10 @@
-// tes/workbox-config.js
+
 export default {
   globDirectory: 'dist/',
   globPatterns: [
     '**/*.{html,js,css,png,jpg,jpeg,svg,ico,woff,woff2,ttf,eot,json}'
   ],
-  swDest: 'dist/sw.js', // File output akan berada di dalam folder dist
+  swDest: 'dist/sw.js', 
   runtimeCaching: [
     {
       urlPattern: /^https:\/\/story-api\.dicoding\.dev\/v1\//,

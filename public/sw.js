@@ -1,14 +1,10 @@
-// Service Worker (Versi Final yang Andal)
-const CACHE_NAME = "story-explorer-v2"; // Naikkan versi cache untuk pembaruan
+const CACHE_NAME = "story-explorer-v2";
 const urlsToCache = [
   '/',
   '/index.html',
   '/manifest.json',
-  // Tambahkan aset-aset utama yang ingin selalu tersedia offline
-  // Vite akan menghasilkan nama file yang berbeda setiap build, jadi kita akan cache saat runtime.
 ];
 
-// 1. Install Service Worker dan Cache Aset Awal
 self.addEventListener('install', (event) => {
   console.log('Service Worker: Installing...');
   event.waitUntil(
@@ -21,7 +17,6 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// 2. Aktifkan Service Worker dan Hapus Cache Lama
 self.addEventListener('activate', (event) => {
   console.log('Service Worker: Activating...');
   event.waitUntil(
@@ -38,19 +33,15 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// 3. Tangani Permintaan Jaringan (Fetch)
 self.addEventListener('fetch', (event) => {
-  // Gunakan strategi Cache First untuk semua permintaan GET
   if (event.request.method === 'GET') {
     event.respondWith(
       caches.open(CACHE_NAME).then((cache) => {
         return cache.match(event.request)
           .then((response) => {
-            // Jika ada di cache, kembalikan dari cache
             if (response) {
               return response;
             }
-            // Jika tidak, ambil dari jaringan, lalu simpan ke cache dan kembalikan
             return fetch(event.request).then((networkResponse) => {
               cache.put(event.request, networkResponse.clone());
               return networkResponse;
@@ -62,7 +53,6 @@ self.addEventListener('fetch', (event) => {
 });
 
 
-// 4. Tangani Event Push Notification
 self.addEventListener('push', (event) => {
   console.log('Service Worker: Push Received.');
 
@@ -72,7 +62,7 @@ self.addEventListener('push', (event) => {
     icon: '/icons/icon-192x192.png',
     badge: '/icons/icon-72x72.png',
     data: {
-      url: '/', // URL yang akan dibuka saat notifikasi diklik
+      url: '/',
     },
   };
 
@@ -81,7 +71,6 @@ self.addEventListener('push', (event) => {
   );
 });
 
-// 5. Tangani Klik pada Notifikasi
 self.addEventListener('notificationclick', (event) => {
   console.log('Service Worker: Notification clicked.');
   event.notification.close();
